@@ -65,7 +65,9 @@ class OrderForm extends Component {
         />
         { this.createIngredientButtons() }
         <p>Order: { this.state.ingredients.join(', ') || 'Nothing selected' }</p>
-        <button onClick={(event) => this.handleSubmit(event)}>
+        <button 
+          className='submit-order'
+          onClick={(event) => this.handleSubmit(event)}>
           Submit Order
         </button>
       </form>

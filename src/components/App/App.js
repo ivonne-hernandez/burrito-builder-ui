@@ -23,7 +23,6 @@ class App extends Component {
   addOrder = (order) => {
     return addOrder(order)
       .then(data => {
-        console.log(data)
         const updatedOrders = [...this.state.orders, data]
         this.setState({ orders: updatedOrders });
       })
