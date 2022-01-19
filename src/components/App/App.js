@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {getOrders, addOrder, deleteExistingOrder} from '../../apiCalls';
+import {getOrders, addOrder} from '../../apiCalls';
 import Orders from '../../components/Orders/Orders';
 import OrderForm from '../../components/OrderForm/OrderForm';
 
@@ -8,7 +8,7 @@ class App extends Component {
   constructor(props) {
     super();
     this.state = {
-      orders: []
+      orders: [], 
     }
   }
 
@@ -21,7 +21,13 @@ class App extends Component {
   }
 
   addOrder = (order) => {
-    
+    return addOrder(order)
+      .then(data => {
+        console.log(data)
+        const updatedOrders = [...this.state.orders, data]
+        this.setState({ orders: updatedOrders });
+      })
+      .catch(err => console.error('Error fetching:', err));
   }
 
   render() {
@@ -29,7 +35,9 @@ class App extends Component {
       <main className="App">
         <header>
           <h1>Burrito Builder</h1>
-          <OrderForm />
+          <OrderForm 
+            addOrder={this.addOrder}
+          />
         </header>
         <Orders orders={this.state.orders}/>
       </main>
